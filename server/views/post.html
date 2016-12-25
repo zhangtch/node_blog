@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发表页</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        title: <input type="text" name="title">
+        abstract: <input type="text" name="abstract">
+        content: <textarea name="content" id="content" cols="30" rows="10"></textarea>
+        <input id="form" type="button" value="确认">
+    </form>
+</div>
+<script src="//lib.baomitu.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://unpkg.com/marked@0.3.6"></script>
+<script>
+    $('#form').on('click',function () {
+        var title = $('input[name="title"]').val();
+        var abstract = $('input[name="abstract"]').val();
+        var content = $('#content').val();
+        $.ajax({
+            url:'http://localhost:3000/post',
+            data:{title:title,abstract:abstract,content:marked(content)},
+            method:'post',
+            dataType:'json',
+            success:function (d) {
+                if(d.code==200){
+                    window.location.href = '/index';
+                }
+            }
+        })
+    });
+</script>
+</body>
+</html>
