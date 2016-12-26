@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios'
 import Axios from 'axios'
+import store from './store'
 Vue.use(VueRouter)
 Vue.use(VueAxios, Axios)
 
@@ -14,6 +15,10 @@ import About from './components/About'
 import Article from './components/Article'
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/home'
+  },
   {
     path: '/home',
     component: Home,
@@ -43,5 +48,6 @@ const router = new VueRouter({
 /* eslint-disable no-new */
 new Vue({
   ...App,
-  router
+  router,
+  store
 }).$mount('#app')

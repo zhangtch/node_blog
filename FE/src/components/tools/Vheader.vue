@@ -13,12 +13,13 @@
       </li>
     </ul>
     <div class="header-title">
-      <h1 v-if="show" transition="fade">{{headlineFinal}}</h1>
+      <h1>{{headlineFinal}}</h1>
     </div>
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
+  import {mapGetters} from 'vuex'
   export default {
     data () {
       return {
@@ -26,11 +27,26 @@
         nav: 'nav',
         isTop: true,
         isVisible: true,
-        headlineFinal: '测试'
+        headlineFinal: ''
       }
     },
     mounted () {
       this.scroll()
+    },
+    created () {
+      this.headlineFinal = this.headline
+    },
+    computed: {
+      ...mapGetters(['headline'])
+    },
+    watch: {
+      'headline': function (val, oldVal) {
+        this.show = false
+        setTimeout(() => {
+          this.show = true
+          this.headlineFinal = val
+        }, 400)
+      }
     },
     methods: {
       scroll () {

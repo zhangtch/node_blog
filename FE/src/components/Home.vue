@@ -12,6 +12,29 @@
   </div>
 </template>
 
+<script type="text/babel">
+  import {mapActions, mapGetters} from 'vuex'
+  export default {
+    created () {
+      this.updateHeadline('测试')
+      this.getContentList()
+      console.log(this.contentList)
+    },
+    computed: {
+      ...mapGetters([
+        'headline',
+        'contentList'
+      ])
+    },
+    methods: {
+      ...mapActions({
+        updateHeadline: 'updateHeadline',
+        getContentList: 'getContentList'
+      })
+    }
+  }
+</script>
+
 <style>
   .list-container li{
     border-bottom: 1px solid #eee;
