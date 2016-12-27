@@ -12,11 +12,38 @@ export const updateHeadline = ({commit}, data) => {
   commit(types.UPDATE_HEADLINE, data)
 }
 
-export const getContentList = ({commit}) => {
+export const getContentList = ({commit}, id) => {
   commit(types.REQUEST_CONTENT_LIST)
-  Vue.axios.get(API_ROOT + 'getContent').then(response => {
-    commit(types.GET_CONTENT_LIST, response.data)
+  if (id) {
+    Vue.axios.get(API_ROOT + 'getContent/' + id).then(response => {
+      commit(types.GET_CONTENT_LIST, response.data.rows)
+    }).catch(error => {
+      commit(types.GET_CONTENT_LIST_FAILURE, error)
+    })
+  } else {
+    Vue.axios.get(API_ROOT + 'getContent').then(response => {
+      commit(types.GET_CONTENT_LIST, response.data.rows)
+    }).catch(error => {
+      commit(types.GET_CONTENT_LIST_FAILURE, error)
+    })
+  }
+}
+
+export const getArticle = ({commit}, id) => {
+  Vue.axios.get(API_ROOT + 'article/' + id).then(response => {
+    commit(types.GET_ARTICLE, response.data.rows)
   }).catch(error => {
-    commit(types.GET_CONTENT_LIST_FAILURE, error)
+    commit(types.GET_ARTICLE_FAILURE, error)
+  })
+}
+export const clearArticle = function ({ commit }) {
+  commit(types.CLEAR_ARTICLE)
+}
+
+export const getTags = function ({ commit }) {
+  Vue.axios.get(API_ROOT + 'getAllTags').then(response => {
+    commit(types.GET_TAGS, response.data.rows)
+  }).catch(error => {
+    commit(types.GET_TAGS_FAILURE, error)
   })
 }

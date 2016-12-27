@@ -1,11 +1,11 @@
 <template>
   <div class="list-wrapper">
     <ul class="list-container" id="list-ul">
-      <li>
-        <router-link :to="'article'">
-          <p class="list-title">标题</p>
-          <p class="list-updated">更新时间</p>
-          <p class="list-abstract">简介</p>
+      <li v-for="item in content.contentList">
+        <router-link :to="{ name: 'article', params: {id: item._id}}">
+          <p class="list-title">{{item.title}}</p>
+          <p class="list-updated">{{item.createdAt}}</p>
+          <p class="list-abstract">{{item.abstract}}</p>
         </router-link>
       </li>
     </ul>
@@ -16,15 +16,16 @@
   import {mapActions, mapGetters} from 'vuex'
   export default {
     created () {
-      this.updateHeadline('测试')
+      this.updateHeadline('我的博客')
       this.getContentList()
-      console.log(this.contentList)
     },
     computed: {
       ...mapGetters([
-        'headline',
-        'contentList'
-      ])
+        'headline'
+      ]),
+      ...mapGetters({
+        content: 'contentList'
+      })
     },
     methods: {
       ...mapActions({

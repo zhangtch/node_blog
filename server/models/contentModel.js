@@ -7,6 +7,7 @@ var contentSchema = new Schema({
     title:{type:String},
     abstract:{type:String},
     content:{type:String},
+    tag:{type:String},
     createdAt:{type:Date, default: Date.new}
 });
 var contentModel = mongodb.mongoose.model('ContentList',contentSchema);

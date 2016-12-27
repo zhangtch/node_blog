@@ -8,26 +8,27 @@
 <div>
     <form method="post">
         title: <input type="text" name="title">
+        tags: <input type="text" name="tag">
         abstract: <input type="text" name="abstract">
         content: <textarea name="content" id="content" cols="30" rows="10"></textarea>
         <input id="form" type="button" value="确认">
     </form>
 </div>
 <script src="//lib.baomitu.com/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://unpkg.com/marked@0.3.6"></script>
 <script>
     $('#form').on('click',function () {
         var title = $('input[name="title"]').val();
+        var tag = $('input[name="tag"]').val();
         var abstract = $('input[name="abstract"]').val();
         var content = $('#content').val();
         $.ajax({
             url:'http://localhost:3000/post',
-            data:{title:title,abstract:abstract,content:marked(content)},
+            data:{title:title,tag:tag,abstract:abstract,content:content},
             method:'post',
             dataType:'json',
             success:function (d) {
                 if(d.code==200){
-                    window.location.href = '/index';
+                    history.go(0);
                 }
             }
         })

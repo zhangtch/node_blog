@@ -45,7 +45,7 @@
         setTimeout(() => {
           this.show = true
           this.headlineFinal = val
-        }, 400)
+        }, 200)
       }
     },
     methods: {
@@ -83,7 +83,7 @@
   }
   .nav-fixed{
     border-bottom: 1px solid #bababa;
-    background-color: rgba(0,0,0,.8);
+    background-color: rgba(255, 255, 255, 0.95);
     color: rgba(0, 0, 0, .8);
   }
   .nav-inVisible{

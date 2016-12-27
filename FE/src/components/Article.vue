@@ -1,10 +1,49 @@
 <template>
   <div>
     <div class="article">
-      <div>第三方第三方第三方第三方</div>
+      <div v-html="content"></div>
     </div>
   </div>
 </template>
+
+<script type="text/babel">
+  import marked from 'marked'
+  import Prism from 'prismjs'
+  import 'prismjs/themes/prism.css'
+  import {mapActions, mapGetters} from 'vuex'
+
+  marked.setOptions({
+    highlight: (code) => Prism.highlight(code, Prism.languages.javascript)
+  })
+  export default {
+    created () {
+      this.getArticle(this.$route.params.id)
+    },
+    computed: {
+      ...mapGetters(['headline', 'article']),
+      content () {
+        this.updateHeadline(this.article.title)
+        let _content = this.article.content
+        marked(this.article.content, (err, content) => {
+          if (!err) {
+            _content = content
+          }
+        })
+        return _content
+      }
+    },
+    methods: {
+      ...mapActions({
+        'updateHeadline': 'updateHeadline',
+        'getArticle': 'getArticle',
+        'clearArticle': 'clearArticle'
+      })
+    },
+    beforeDestroy () {
+      this.clearArticle()
+    }
+  }
+</script>
 
 <style>
   .article{

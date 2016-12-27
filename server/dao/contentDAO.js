@@ -31,6 +31,11 @@ contentDAO.prototype = {
         contentModel.findOne(title, function (err, doc) {
             callBack(err, doc);
         });
+    },
+    findByTags: function (tags, callBack) {
+        contentModel.find(tags, function (err, doc) {
+            callBack(err, doc);
+        });
     }
 };
 exports.contentDAO = new contentDAO();

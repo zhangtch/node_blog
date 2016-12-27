@@ -2,15 +2,33 @@
  * Created by Administrator on 2016/12/16.
  */
 var contentDAO = require('../dao/contentDAO').contentDAO;
-
+var tagsDAO = require('../dao/tagsDAO').tagsDAO;
+const judgeTag = function(tagName){
+    if(!tagName){
+        tagsDAO.findByName({name:tagName},function (err, doc) {
+            if (!err) {
+                if(doc.name !== tagName) {
+                    tagsDAO.save({name:tagName},function (err) {
+                        if (err) {
+                            return err;
+                        }
+                    });
+                }
+            }
+        });
+    }
+};
 //发表
 exports.post = function (req, res) {
+    var tagName = req.body.tag;
     var newContent = {
         title: req.body.title,
+        tag: tagName,
         abstract: req.body.abstract,
         content: req.body.content,
         createdAt: Date.now()
     };
+    judgeTag();
     contentDAO.save(newContent, function (err) {
         if(!err){
             var param = {
@@ -23,12 +41,15 @@ exports.post = function (req, res) {
 };
 //更新列表
 exports.update = function (req, res) {
+    var tagName = req.body.tag;
     var updateContent = {
         title: req.body.title,
+        tag: tagName,
         abstract: req.body.abstract,
         content: req.body.content,
         createdAt: Date.now()
     };
+    judgeTag(tagName);
     contentDAO.update({_id:req.body._id},{'$set':updateContent}, function (err) {
         if(!err){
             var param = {
@@ -60,9 +81,18 @@ exports.getContent = function (req, res) {
         }
     });
 };
-//根据title获取
-exports.getOne = function (req, res) {
+//根据id获取
+exports.getOneById = function (req, res) {
     contentDAO.findByTitle({_id:req.params._id},function (err, doc) {
+        if (!err) {
+            doc = {rows:doc};
+            res.send(doc);
+        }
+    });
+};
+//根据tag获取
+exports.getByTag = function (req, res) {
+    contentDAO.findByTags({tag:req.params.tag},function (err, doc) {
         if (!err) {
             doc = {rows:doc};
             res.send(doc);

@@ -3,7 +3,13 @@
  */
 var ListJS = {
     init: function () {
-        $.getJSON('http://localhost:3000/getContent',function (d) {
+        var search = decodeURI(window.location.search, "UTF-8");
+        var tag = '';
+        if(search){
+            tag = search.slice(1).split('=');
+            tag = tag[1];
+        }
+        $.getJSON('http://localhost:3000/getContent/'+tag,function (d) {
             var rows = d.rows;
             var html = '';
             for(var i=0,len = rows.length;i<len;i++){
@@ -11,7 +17,7 @@ var ListJS = {
                     <div class="single">
                         <div class="single_left">
                             <div class="article_title abs-title">
-                                <a href="/node_blog/views/article.html?id=${rows[i]._id}" class="article-list-title" target="_blank" 
+                                <a href="/node_blog/server/views/article.html?id=${rows[i]._id}" class="article-list-title" target="_blank" 
                                 title="${rows[i].title}">${rows[i].title}
                                 </a>
                             </div>
@@ -29,6 +35,9 @@ var ListJS = {
                     </div>
                     <div class="tip meta-tip">
                         <span>${rows[i].createdAt}</span>
+                        <a href="/node_blog/server/views/list.html?tag=${rows[i].tag}" class="article-list-title" target="_blank" 
+                                title="${rows[i].tag}">${rows[i].tag}
+                                </a>
                     </div>
                 </div>`;
             }

@@ -2,8 +2,10 @@
   <div>
     <div class="tagset">
       <ul>
-        <li v-for="tag in tags">
-          <a>sdf
+        <li v-for="(tag, index) in tags">
+          <a @click="update(index, tag.name, tag._id)"
+             :class="{'tagset-active': index === selected}">
+            {{tag.name}}
           </a>
         </li>
       </ul>
@@ -11,6 +13,50 @@
     <tag-content-list></tag-content-list>
   </div>
 </template>
+
+<script type="text/babel">
+  import TagContentList from './tools/TagContentList'
+  import {mapActions, mapGetters} from 'vuex'
+  export default {
+    components: {
+      TagContentList
+    },
+    data () {
+      return {
+        selected: 0
+      }
+    },
+    created () {
+      this.getTags()
+    },
+    computed: {
+      ...mapGetters(['tags']),
+      ...mapGetters({
+        'content': 'contentList'
+      })
+    },
+    watch: {
+      'tags': function (val, oldVal) {
+        if (val) {
+          this.updateHeadline(val[0].name)
+          this.getContentList(val[0].name)
+        }
+      }
+    },
+    methods: {
+      ...mapActions({
+        'getTags': 'getTags',
+        'updateHeadline': 'updateHeadline',
+        'getContentList': 'getContentList'
+      }),
+      update (index, name, tagId) {
+        this.selected = index
+        this.updateHeadline(name)
+        this.getContentList(name)
+      }
+    }
+  }
+</script>
 
 <style>
   .tagset {
