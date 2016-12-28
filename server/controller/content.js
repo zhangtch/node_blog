@@ -4,10 +4,10 @@
 var contentDAO = require('../dao/contentDAO').contentDAO;
 var tagsDAO = require('../dao/tagsDAO').tagsDAO;
 const judgeTag = function(tagName){
-    if(!tagName){
+    if(tagName){
         tagsDAO.findByName({name:tagName},function (err, doc) {
             if (!err) {
-                if(doc.name !== tagName) {
+                if(!doc || doc.name !== tagName) {
                     tagsDAO.save({name:tagName},function (err) {
                         if (err) {
                             return err;

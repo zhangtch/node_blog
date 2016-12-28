@@ -38,7 +38,7 @@
     watch: {
       'tags': function (val) {
         if (val) {
-          this.updateHeadline({headline: val[0].name})
+          this.updateHeadline({headline: val[0].name, imageUrl: ''})
           this.getContentList(val[0].name)
         }
       }
