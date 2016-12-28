@@ -3,6 +3,7 @@
     <div class="article">
       <div v-html="content"></div>
     </div>
+    <comment></comment>
   </div>
 </template>
 
@@ -10,19 +11,23 @@
   import marked from 'marked'
   import Prism from 'prismjs'
   import 'prismjs/themes/prism.css'
+  import Comment from './tools/Comment'
   import {mapActions, mapGetters} from 'vuex'
 
   marked.setOptions({
     highlight: (code) => Prism.highlight(code, Prism.languages.javascript)
   })
   export default {
+    components: {
+      Comment
+    },
     created () {
       this.getArticle(this.$route.params.id)
     },
     computed: {
       ...mapGetters(['headline', 'article']),
       content () {
-        this.updateHeadline(this.article.title)
+        this.updateHeadline({headline: this.article.title, imageUrl: this.article.imageUrl})
         let _content = this.article.content
         marked(this.article.content, (err, content) => {
           if (!err) {

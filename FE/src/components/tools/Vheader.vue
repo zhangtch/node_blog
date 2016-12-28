@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="header-background"></div>
+    <div class="header-background">
+      <img :src="imgUrl" alt="">
+    </div>
     <ul :class="['nav',{'nav-fixed':!isTop,'nav-inVisible':!isVisible}]">
       <li>
         <router-link :to="'home'">主页</router-link>
@@ -13,7 +15,7 @@
       </li>
     </ul>
     <div class="header-title">
-      <h1>{{headlineFinal}}</h1>
+      <h1 v-if="show" transition="fade">{{headlineFinal}}</h1>
     </div>
   </div>
 </template>
@@ -27,24 +29,32 @@
         nav: 'nav',
         isTop: true,
         isVisible: true,
-        headlineFinal: ''
+        headlineFinal: '',
+        imgUrl: ''
       }
     },
     mounted () {
       this.scroll()
     },
     created () {
-      this.headlineFinal = this.headline
+      this.headlineFinal = this.headline.headline
     },
     computed: {
       ...mapGetters(['headline'])
     },
     watch: {
-      'headline': function (val, oldVal) {
+      'headline.headline': function (val, oldVal) {
         this.show = false
         setTimeout(() => {
           this.show = true
           this.headlineFinal = val
+        }, 200)
+      },
+      'headline.imageUrl': function (val, oldVal) {
+        this.show = false
+        setTimeout(() => {
+          this.show = true
+          this.imgUrl = val
         }, 200)
       }
     },
@@ -114,8 +124,12 @@
     left:0;
     top:0;
     z-index:-1;
-    background:rgba(0,0,0,.4) url('../../assets/banner.jpg') no-repeat;
-    background-size:cover;
+    /*background:rgba(0,0,0,.4) url('http://ogcpvbso8.bkt.clouddn.com/banner.jpg') no-repeat;*/
+    /*background-size:cover;*/
+  }
+  .header-background img{
+    width:100%;
+    height:100%;
   }
   .header-title{
     display: flex;

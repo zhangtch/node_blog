@@ -16,13 +16,10 @@
   import {mapActions, mapGetters} from 'vuex'
   export default {
     created () {
-      this.updateHeadline('我的博客')
+      this.updateHeadline({headline: '我的博客', imageUrl: 'http://ogcpvbso8.bkt.clouddn.com/banner.jpg'})
       this.getContentList()
     },
     computed: {
-      ...mapGetters([
-        'headline'
-      ]),
       ...mapGetters({
         content: 'contentList'
       })

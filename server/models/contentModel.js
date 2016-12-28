@@ -8,6 +8,7 @@ var contentSchema = new Schema({
     abstract:{type:String},
     content:{type:String},
     tag:{type:String},
+    imageUrl:{type:String},
     createdAt:{type:Date, default: Date.new}
 });
 var contentModel = mongodb.mongoose.model('ContentList',contentSchema);

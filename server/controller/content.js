@@ -26,9 +26,10 @@ exports.post = function (req, res) {
         tag: tagName,
         abstract: req.body.abstract,
         content: req.body.content,
+        imageUrl: req.body.imageUrl,
         createdAt: Date.now()
     };
-    judgeTag();
+    judgeTag(tagName);
     contentDAO.save(newContent, function (err) {
         if(!err){
             var param = {

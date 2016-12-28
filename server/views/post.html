@@ -7,11 +7,12 @@
 <body>
 <div>
     <form method="post">
-        title: <input type="text" name="title">
-        tags: <input type="text" name="tag">
-        abstract: <input type="text" name="abstract">
-        content: <textarea name="content" id="content" cols="30" rows="10"></textarea>
-        <input id="form" type="button" value="确认">
+        <p>title: <input type="text" name="title"></p>
+        <p>tags: <input type="text" name="tag"></p>
+        <p>abstract: <input type="text" name="abstract"></p>
+        <p>imageUrl: <input type="text" name="imageUrl"></p>
+        <p>content: <textarea name="content" id="content" cols="30" rows="10"></textarea></p>
+        <p><input id="form" type="button" value="确认"></p>
     </form>
 </div>
 <script src="//lib.baomitu.com/jquery/3.1.1/jquery.min.js"></script>
@@ -20,10 +21,11 @@
         var title = $('input[name="title"]').val();
         var tag = $('input[name="tag"]').val();
         var abstract = $('input[name="abstract"]').val();
+        var imageUrl = $('input[name="imageUrl"]').val();
         var content = $('#content').val();
         $.ajax({
             url:'http://localhost:3000/post',
-            data:{title:title,tag:tag,abstract:abstract,content:content},
+            data:{title:title,tag:tag,abstract:abstract,content:content,imageUrl:imageUrl},
             method:'post',
             dataType:'json',
             success:function (d) {

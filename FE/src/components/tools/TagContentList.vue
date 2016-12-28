@@ -27,7 +27,7 @@
       })
     },
     watch: {
-      'content.contentList': function (val, oldVal) {
+      'content.contentList': function (val) {
         this.show = false
         setTimeout(() => {
           this.show = true

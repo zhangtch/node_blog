@@ -5,13 +5,15 @@ import * as types from '../mutation-types'
 
 const state = {
   content: '',
-  title: ''
+  title: '',
+  imageUrl: ''
 }
 
 const mutations = {
   [types.GET_ARTICLE] (state, data) {
     state.content = data.content
     state.title = data.title
+    state.imageUrl = data.imageUrl
   },
   [types.GET_ARTICLE_FAILURE] (state) {
     return state
@@ -19,6 +21,7 @@ const mutations = {
   [types.CLEAR_ARTICLE] (state) {
     state.content = ''
     state.title = ''
+    state.imageUrl = ''
   }
 }
 

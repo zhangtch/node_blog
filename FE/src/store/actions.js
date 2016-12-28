@@ -47,3 +47,19 @@ export const getTags = function ({ commit }) {
     commit(types.GET_TAGS_FAILURE, error)
   })
 }
+
+export const getCommentList = function ({ commit }, value) {
+  Vue.axios.get(API_ROOT + 'getComments/' + value).then(response => {
+    commit(types.GET_COMMENTS_LIST, response.data)
+  }).catch(error => {
+    commit(types.GET_COMMENTS_LIST_FAILURE, error)
+  })
+}
+
+export const submitComment = function ({ commit }) {
+  Vue.axios.post(API_ROOT + 'postComment').then(response => {
+    commit(types.SUBMIT_COMMENT, response.data)
+  }).catch(error => {
+    commit(types.SUBMIT_COMMENT_FAILURE, error)
+  })
+}

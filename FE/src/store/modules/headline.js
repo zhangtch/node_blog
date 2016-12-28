@@ -4,15 +4,19 @@
 import * as types from '../mutation-types'
 
 const state = {
-  headline: ''
+  headline: '',
+  imageUrl: ''
 }
 
 const mutations = {
   [types.UPDATE_HEADLINE] (state, value) {
-    state.headline = value
+    state.headline = value.headline
+    if (value.imageUrl) {
+      state.imageUrl = value.imageUrl
+    }
   },
   [types.GET_HEADLINE] (state) {
-    return state.headline
+    return state
   }
 }
 

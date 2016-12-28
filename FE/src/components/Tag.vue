@@ -36,9 +36,9 @@
       })
     },
     watch: {
-      'tags': function (val, oldVal) {
+      'tags': function (val) {
         if (val) {
-          this.updateHeadline(val[0].name)
+          this.updateHeadline({headline: val[0].name})
           this.getContentList(val[0].name)
         }
       }
@@ -51,7 +51,7 @@
       }),
       update (index, name, tagId) {
         this.selected = index
-        this.updateHeadline(name)
+        this.updateHeadline({headline: name})
         this.getContentList(name)
       }
     }
