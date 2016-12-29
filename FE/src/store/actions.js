@@ -56,9 +56,9 @@ export const getCommentList = function ({ commit }, value) {
   })
 }
 
-export const submitComment = function ({ commit }) {
-  Vue.axios.post(API_ROOT + 'postComment').then(response => {
-    commit(types.SUBMIT_COMMENT, response.data)
+export const submitComment = function ({commit}, data) {
+  Vue.axios.post(API_ROOT + 'postComment', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(response => {
+    commit(types.SUBMIT_COMMENT, response.data.rows)
   }).catch(error => {
     commit(types.SUBMIT_COMMENT_FAILURE, error)
   })

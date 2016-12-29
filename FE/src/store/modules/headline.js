@@ -13,6 +13,8 @@ const mutations = {
     state.headline = value.headline
     if (value.imageUrl) {
       state.imageUrl = value.imageUrl
+    } else {
+      state.imageUrl = 'http://ogcpvbso8.bkt.clouddn.com/banner.jpg'
     }
   },
   [types.GET_HEADLINE] (state) {

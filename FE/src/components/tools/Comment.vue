@@ -18,12 +18,13 @@
 
         <p class="comment-item-content">{{item.content}}</p>
         <div class="comment-item-reply-wrapper">
-          <a @click="reply(item.objectId, item.name)" class="comment-item-reply">回复</a>
+          <a @click="reply(item._id, item.name)" class="comment-item-reply">回复</a>
         </div>
       </li>
     </ul>
+
     <a name="firstAnchor"></a>
-    <h1 id="comment-form-title">回复{{replyName}}</h1>
+    <h1 id="comment-form-title">回复&nbsp;{{replyName}}</h1>
     <div class="comment-form">
       <input v-model="formName" class="comment-form-name" type="text" placeholder="昵称" maxlength="20">
       <textarea v-model="formContent" class="comment-form-content" name="" id="" cols="30" rows="10"
@@ -47,14 +48,58 @@
         articleId: this.$route.params.id
       }
     },
+    created () {
+      this.getCommentList(this.articleId)
+    },
     computed: {
-      ...mapGetters(['commentList'])
+      ...mapGetters(['commentList']),
+      finalCommentsList () {
+        if (!this.commentList.commentList) {
+          return []
+        } else {
+          return this.commentList.commentList.map((item, index, arr) => {
+            if (item.reply) {
+              const replyToId = item.reply
+              let obj = {}
+              let reply = arr.find(data => data._id === replyToId)
+              obj._id = item._id
+              obj.name = item.name
+              obj.createdAt = item.createdAt
+              obj.content = item.content
+              obj.reply = reply
+              return obj
+            }
+            return item
+          })
+        }
+      }
     },
     methods: {
       ...mapActions({
         'getCommentList': 'getCommentList',
         'submitComment': 'submitComment'
-      })
+      }),
+      submit () {
+        if (!this.formName || !this.formContent) {
+          window.alert('昵称和内容不可为空')
+          return
+        }
+        const data = {
+          name: this.formName,
+          content: this.formContent,
+          reply: this.formReply,
+          pointerArticle: this.articleId
+        }
+        this.submitComment(data)
+        this.formName = ''
+        this.formContent = ''
+        this.replyName = ''
+        this.formReply = ''
+      },
+      reply (replyToId, replyToName) {
+        this.replyName = replyToName
+        this.formReply = replyToId
+      }
     }
   }
 </script>

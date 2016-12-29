@@ -4,18 +4,23 @@
 var commentDAO = require('../dao/commentDAO').commentDAO;
 //发表回复
 exports.post = function (req, res) {
-    var newContent = {
-        name: req.body.name,
-        pointerArticle: req.body.pointerArticle,
-        content: req.body.content,
-        reply: req.body.reply,
-        createdAt: Date.now()
-    };
+    var newContent;
+    for(var key in req.body) {
+        var param = JSON.parse(key)
+        newContent = {
+            name: param.name,
+            pointerArticle: param.pointerArticle,
+            content: param.content,
+            reply: param.reply,
+            createdAt:new Date()
+        };
+    }
     commentDAO.save(newContent, function (err) {
         if(!err){
             var param = {
                 code: 200,
-                msg: '成功回复'
+                msg: '成功回复',
+                rows: newContent
             };
             res.send(param);
         }

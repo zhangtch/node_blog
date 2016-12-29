@@ -4,18 +4,18 @@
 import * as types from '../mutation-types'
 
 const state = {
-  commentsList: []
+  commentList: []
 }
 
 const mutations = {
   [types.GET_COMMENTS_LIST] (state, data) {
-    state.commentsList = data
+    state.commentList = data
   },
   [types.GET_COMMENTS_LIST_FAILURE] (state) {
     return state
   },
   [types.SUBMIT_COMMENT] (state, data) {
-    state.commentsList.push(data)
+    state.commentList.push(data)
   },
   [types.SUBMIT_COMMENT_FAILURE] (state) {
     return state

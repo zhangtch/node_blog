@@ -22,6 +22,7 @@
       Comment
     },
     created () {
+      document.body.scrollTop = 0
       this.getArticle(this.$route.params.id)
     },
     computed: {
