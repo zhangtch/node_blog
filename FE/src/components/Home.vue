@@ -2,7 +2,7 @@
   <div class="list-wrapper">
     <ul class="list-container" id="list-ul">
       <li v-for="item in content.contentList">
-        <router-link :to="{ name: 'article', params: {id: item._id}}">
+        <router-link :to="{ name: 'article', params: {id: item.objectId}}">
           <p class="list-title">{{item.title}}</p>
           <p class="list-updated">{{item.createdAt}}</p>
           <p class="list-abstract">{{item.abstract}}</p>

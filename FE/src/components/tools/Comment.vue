@@ -18,7 +18,7 @@
 
         <p class="comment-item-content">{{item.content}}</p>
         <div class="comment-item-reply-wrapper">
-          <a @click="reply(item._id, item.name)" class="comment-item-reply">回复</a>
+          <a @click="reply(item.objectId, item.name)" class="comment-item-reply">回复</a>
         </div>
       </li>
     </ul>
@@ -61,8 +61,8 @@
             if (item.reply) {
               const replyToId = item.reply
               let obj = {}
-              let reply = arr.find(data => data._id === replyToId)
-              obj._id = item._id
+              let reply = arr.find(data => data.objectId === replyToId)
+              obj.objectId = item.objectId
               obj.name = item.name
               obj.createdAt = item.createdAt
               obj.content = item.content

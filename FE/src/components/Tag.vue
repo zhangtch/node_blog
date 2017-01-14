@@ -3,7 +3,7 @@
     <div class="tagset">
       <ul>
         <li v-for="(tag, index) in tags">
-          <a @click="update(index, tag.name, tag._id)"
+          <a @click="update(index, tag.name, tag.objectId)"
              :class="{'tagset-active': index === selected}">
             {{tag.name}}
           </a>
