@@ -6,10 +6,12 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const todos = require('./routes/todos');
 const AV = require('leanengine');
+const history = require('connect-history-api-fallback');
 
 const app = express();
 // babel 编译
 require('babel-core/register');
+app.use(history());
 // 各个模块
 const router = require('./routes/index');
 const config = require('./config');

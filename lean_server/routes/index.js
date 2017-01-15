@@ -18,7 +18,7 @@ module.exports = function (app) {
 
     app.get('/getAllTags', TagsList.tgsList);
 
-    app.get('/getComments/:pointerArticle', CommentList.commentList);
+    app.get('/getComments/:id', CommentList.commentList);
     app.get('/getReply/:reply', CommentList.getReply);
     app.post('/postComment', CommentList.postComment);
 };
