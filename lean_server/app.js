@@ -15,8 +15,8 @@ const router = require('./routes/index');
 const config = require('./config');
 
 // 设置模板引擎
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // 设置默认超时时间
@@ -75,10 +75,11 @@ app.use(function(err, req, res, next) { // jshint ignore:line
     // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
     error = err;
   }
-  res.render('error', {
-    message: err.message,
-    error: error
-  });
+  res.send(error)
+  // res.render('error', {
+  //   message: err.message,
+  //   error: error
+  // });
 });
 
 module.exports = app;
