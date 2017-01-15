@@ -7,13 +7,14 @@ const AV = require('leanengine');
 const Comments = AV.Object.extend('Comments');
 // 根据文章查询 ContentList 列表
 exports.commentList = function (req, res, next) {
-    const pointerArticle = req.params.pointerArticle
+    const pointerArticle = req.params.id
     if (pointerArticle === '') {
         res.status(500).send('id is empty')
     }
     const query = new AV.Query(Comments);
     query.descending('createdAt');
-    query.find({pointerArticle:pointerArticle}).then(function (data) {
+    query.equalTo('pointerArticle', pointerArticle);
+    query.find().then(function (data) {
         if (data) {
             let arr = []
 

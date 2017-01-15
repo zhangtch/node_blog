@@ -80,7 +80,9 @@ exports.article = function (req, res, next) {
 exports.contentListByTag = function (req, res, next) {
     const id = req.params.tag
     const query = new AV.Query(ContentList);
-    query.find({tag:id}).then(function (data) {
+    query.equalTo('tag', id);
+    query.descending('createdAt');
+    query.find().then(function (data) {
         if (data) {
             let arr = []
             for (let item of data) {
