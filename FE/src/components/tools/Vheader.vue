@@ -5,13 +5,13 @@
     </div>
     <ul :class="['nav',{'nav-fixed':!isTop,'nav-inVisible':!isVisible}]">
       <li>
-        <router-link :to="'home'">主页</router-link>
+        <router-link :to="'/home'">主页</router-link>
       </li>
       <li>
-        <router-link :to="'tags'">标签</router-link>
+        <router-link :to="'/tags'">标签</router-link>
       </li>
       <li>
-        <router-link :to="'about'">关于</router-link>
+        <router-link :to="'/about'">关于</router-link>
       </li>
     </ul>
     <div class="header-title">
