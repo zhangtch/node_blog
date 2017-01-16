@@ -16,7 +16,7 @@
   import {mapActions, mapGetters} from 'vuex'
   export default {
     created () {
-      this.updateHeadline({headline: '我的博客', imageUrl: 'http://ogcpvbso8.bkt.clouddn.com/banner.jpg'})
+      this.updateHeadline({headline: '我的博客', imageUrl: ''})
       this.getContentList()
     },
     computed: {

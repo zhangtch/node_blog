@@ -6,6 +6,20 @@
   </div>
 </template>
 
+<script type="text/babel">
+  import {mapActions} from 'vuex'
+  export default {
+    created () {
+      this.updateHeadline({headline: '关于我', imageUrl: ''})
+    },
+    methods: {
+      ...mapActions({
+        updateHeadline: 'updateHeadline'
+      })
+    }
+  }
+</script>
+
 <style>
   .about-wrapper {
     width: 80%;

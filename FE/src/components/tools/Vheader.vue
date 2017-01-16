@@ -17,6 +17,8 @@
     <div class="header-title">
       <h1 v-if="show" transition="fade">{{headlineFinal}}</h1>
     </div>
+    <div class="return" title="返回顶部" :style="{display:returnBtn}"
+         @click="toTop()"></div>
   </div>
 </template>
 
@@ -30,7 +32,8 @@
         isTop: true,
         isVisible: true,
         headlineFinal: '',
-        imgUrl: ''
+        imgUrl: '',
+        returnBtn: false
       }
     },
     mounted () {
@@ -74,7 +77,37 @@
           if (afterScrollTop < 48) {
             this.isVisible = true
           }
+          this.returnBtn = afterScrollTop > 0 ? 'block' : 'none'
         }
+      },
+      toTop () {
+        //  IE10+/Android Browser4.4+/
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function (clb) {
+          return setTimeout(clb, 1000 / 60)
+        }
+
+        var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame || function (id) {
+          clearTimeout(id)
+        }
+        var top = document.body.scrollTop || document.documentElement.scrollTop
+
+        // 滚动时长
+        var duration = 300
+        // 计算步长
+        var step = top / (duration / (1000 / 60)) >> 0
+
+        function fn () {
+          if (top >= 0) {
+            top -= step
+            document.documentElement.scrollTop = document.body.scrollTop = top
+            fn.rafTimer = requestAnimationFrame(fn)
+          } else {
+            document.body.scrollTop = 0
+            cancelAnimationFrame(fn.rafTimer)
+          }
+        }
+
+        fn.rafTimer = requestAnimationFrame(fn)
       }
     }
   }
@@ -113,14 +146,14 @@
 
   .header{
     display: flex;
-    height: 30rem;
+    height: 100%;
     flex-direction: column;
     background-color: rgba(0,0,0,.2);
   }
   .header-background{
     position: absolute;
     width:100%;
-    height:30rem;
+    height:100%;
     left:0;
     top:0;
     z-index:-1;
@@ -158,5 +191,21 @@
     .header,.header-background{
       height:24rem;
     }
+  }
+  .return{
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    position: fixed;
+    _position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background: url(http://ogcpvbso8.bkt.clouddn.com/return_bg.png) no-repeat 0 -50px;
   }
 </style>

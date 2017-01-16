@@ -14,7 +14,7 @@ const mutations = {
     if (value.imageUrl) {
       state.imageUrl = value.imageUrl
     } else {
-      state.imageUrl = 'http://ogcpvbso8.bkt.clouddn.com/banner.jpg'
+      state.imageUrl = 'http://ogcpvbso8.bkt.clouddn.com/node_blog1.jpg'
     }
   },
   [types.GET_HEADLINE] (state) {
