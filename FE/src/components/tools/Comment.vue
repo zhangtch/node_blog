@@ -59,14 +59,14 @@
         } else {
           return this.commentList.commentList.map((item, index, arr) => {
             if (item.reply) {
-              const replyToId = item.reply
-              let obj = {}
-              let reply = arr.find(data => data.objectId === replyToId)
-              obj.objectId = item.objectId
-              obj.name = item.name
-              obj.createdAt = item.createdAt
-              obj.content = item.content
-              obj.reply = reply
+              const replyToId = item.reply;
+              let obj = {};
+              let reply = arr.find(data => data.objectId === replyToId);
+              obj.objectId = item.objectId;
+              obj.name = item.name;
+              obj.createdAt = item.createdAt;
+              obj.content = item.content;
+              obj.reply = reply;
               return obj
             }
             return item
@@ -81,7 +81,7 @@
       }),
       submit () {
         if (!this.formName || !this.formContent) {
-          window.alert('昵称和内容不可为空')
+          window.alert('昵称和内容不可为空');
           return
         }
         const data = {
@@ -89,15 +89,16 @@
           content: this.formContent,
           reply: this.formReply,
           pointerArticle: this.articleId
-        }
-        this.submitComment(data)
-        this.formName = ''
-        this.formContent = ''
-        this.replyName = ''
+        };
+        this.submitComment(data);
+        this.getCommentList(this.articleId);
+        this.formName = '';
+        this.formContent = '';
+        this.replyName = '';
         this.formReply = ''
       },
       reply (replyToId, replyToName) {
-        this.replyName = replyToName
+        this.replyName = replyToName;
         this.formReply = replyToId
       }
     }

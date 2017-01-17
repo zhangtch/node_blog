@@ -7,24 +7,24 @@ const AV = require('leanengine');
 const Comments = AV.Object.extend('Comments');
 // 根据文章查询 ContentList 列表
 exports.commentList = function (req, res, next) {
-    const pointerArticle = req.params.id
+    const pointerArticle = req.params.id;
     if (pointerArticle === '') {
         res.status(500).send('id is empty')
     }
     const query = new AV.Query(Comments);
-    query.descending('createdAt');
+    // query.ascendant('createdAt');
     query.equalTo('pointerArticle', pointerArticle);
     query.find().then(function (data) {
         if (data) {
-            let arr = []
+            let arr = [];
 
             for (let item of data) {
-                let result = {}
-                result.objectId = item.get('objectId')
-                result.name = item.get('name')
-                result.content = item.get('content')
-                result.reply = item.get('reply')
-                result.createdAt = item.get('createdAt').Format("yyyy-MM-dd hh:mm:ss")
+                let result = {};
+                result.objectId = item.get('objectId');
+                result.name = item.get('name');
+                result.content = item.get('content');
+                result.reply = item.get('reply');
+                result.createdAt = item.get('createdAt').Format("yyyy-MM-dd hh:mm:ss");
                 arr.push(result)
             }
 
@@ -40,10 +40,10 @@ exports.commentList = function (req, res, next) {
             next(err);
         }
     }).catch(next);
-}
+};
 // 根据评论id获取评论信息
 exports.getReply = function (req, res, next) {
-    const reply = req.params.reply
+    const reply = req.params.reply;
     if (reply === '') {
         res.status(500).send('id is empty')
     }
@@ -51,15 +51,15 @@ exports.getReply = function (req, res, next) {
     query.descending('createdAt');
     query.find({reply:reply}).then(function (data) {
         if (data) {
-            let arr = []
+            let arr = [];
 
             for (let item of data) {
-                let result = {}
-                result.objectId = item.get('objectId')
-                result.name = item.get('name')
-                result.content = item.get('content')
-                result.reply = item.get('reply')
-                result.createdAt = item.get('createdAt').Format("yyyy-MM-dd hh:mm:ss")
+                let result = {};
+                result.objectId = item.get('objectId');
+                result.name = item.get('name');
+                result.content = item.get('content');
+                result.reply = item.get('reply');
+                result.createdAt = item.get('createdAt').Format("yyyy-MM-dd hh:mm:ss");
                 arr.push(result)
             }
 
@@ -75,14 +75,14 @@ exports.getReply = function (req, res, next) {
             next(err);
         }
     }).catch(next);
-}
+};
 //发表评论
 exports.postComment = function (req, res) {
     for(var key in req.body) {
-        var param = JSON.parse(key)
-        var name = param.name
-        var content = param.content
-        var reply = param.reply
+        var param = JSON.parse(key);
+        var name = param.name;
+        var content = param.content;
+        var reply = param.reply;
         var articleId = param.pointerArticle
     }
 
@@ -90,17 +90,17 @@ exports.postComment = function (req, res) {
         res.status(500).send('昵称和内容不可为空')
     }
     const comments = new Comments();
-    comments.set('name', name)
-    comments.set('content', content)
-    comments.set('reply', reply)
-    comments.set('pointerArticle', articleId)
-    comments.save()
+    comments.set('name', name);
+    comments.set('content', content);
+    comments.set('reply', reply);
+    comments.set('pointerArticle', articleId);
+    comments.save();
 
     try {
-        let result = {}
-        result.name = name
-        result.content = content
-        result.reply = reply
+        let result = {};
+        result.name = name;
+        result.content = content;
+        result.reply = reply;
         res.send(result)
     } catch (error) {
         res.status(500).send(error)

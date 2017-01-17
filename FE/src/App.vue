@@ -87,6 +87,23 @@ export default {
     height:10rem;
   }
 
+  .return{
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    position: fixed;
+    _position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background: url(http://static1.tuicool.com/images/return_bg.png) no-repeat 0 -50px;
+  }
+
   @media screen and (max-width: 768px){
     .main-wrapper{
       width:100%;
