@@ -5,14 +5,16 @@ import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios'
 import Axios from 'axios'
 import store from './store'
-Vue.use(VueRouter)
-Vue.use(VueAxios, Axios)
+Vue.use(VueRouter);
+Vue.use(VueAxios, Axios);
 
 import App from './App'
 import Home from './components/Home'
 import Tag from './components/Tag'
 import About from './components/About'
 import Article from './components/Article'
+
+import Punch from './components/punch'
 
 const routes = [
   {
@@ -38,17 +40,22 @@ const routes = [
     path: '/article/:id',
     component: Article,
     name: 'article'
+  },
+  {
+    path: '/punch',
+    component: Punch,
+    name: 'punch'
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   routes
-})
+});
 
 /* eslint-disable no-new */
 new Vue({
   ...App,
   router,
   store
-}).$mount('#app')
+}).$mount('#app');
