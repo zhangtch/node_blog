@@ -26,8 +26,8 @@ exports.toPunch = function (req, res, next) {
     };
     headers.Cookie = req.params.cookies;
     let params = {
-        'lng' : '113.3369',
-        'lat' : '23.14866',
+        'lng' : '113.3369',//坐标拾取加上随机数
+        'lat' : '23.14866',//坐标拾取加上随机数比较好
         'accuracy' : '1500.029'
     };
     request({

@@ -5,16 +5,16 @@ import Vue from 'vue'
 import * as types from './mutation-types'
 import { API_ROOT } from '../config'
 // let API_ROOT = 'http://localhost:3000/'
-
+require('es6-promise').polyfill();
 export const getHeadline = ({commit}) => {
   commit(types.GET_HEADLINE)
-}
+};
 export const updateHeadline = ({commit}, data) => {
   commit(types.UPDATE_HEADLINE, data)
-}
+};
 
 export const getContentList = ({commit}, id) => {
-  commit(types.REQUEST_CONTENT_LIST)
+  commit(types.REQUEST_CONTENT_LIST);
   if (id) {
     Vue.axios.get(API_ROOT + 'getContent/' + id).then(response => {
       commit(types.GET_CONTENT_LIST, response.data)
@@ -28,7 +28,7 @@ export const getContentList = ({commit}, id) => {
       commit(types.GET_CONTENT_LIST_FAILURE, error)
     })
   }
-}
+};
 
 export const getArticle = ({commit}, id) => {
   Vue.axios.get(API_ROOT + 'article/' + id).then(response => {
@@ -36,10 +36,10 @@ export const getArticle = ({commit}, id) => {
   }).catch(error => {
     commit(types.GET_ARTICLE_FAILURE, error)
   })
-}
+};
 export const clearArticle = function ({ commit }) {
   commit(types.CLEAR_ARTICLE)
-}
+};
 
 export const getTags = function ({ commit }) {
   Vue.axios.get(API_ROOT + 'getAllTags').then(response => {
@@ -47,7 +47,7 @@ export const getTags = function ({ commit }) {
   }).catch(error => {
     commit(types.GET_TAGS_FAILURE, error)
   })
-}
+};
 
 export const getCommentList = function ({ commit }, value) {
   Vue.axios.get(API_ROOT + 'getComments/' + value).then(response => {
@@ -55,7 +55,7 @@ export const getCommentList = function ({ commit }, value) {
   }).catch(error => {
     commit(types.GET_COMMENTS_LIST_FAILURE, error)
   })
-}
+};
 
 export const submitComment = function ({commit}, data) {
   Vue.axios.post(API_ROOT + 'postComment', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(response => {
@@ -63,4 +63,4 @@ export const submitComment = function ({commit}, data) {
   }).catch(error => {
     commit(types.SUBMIT_COMMENT_FAILURE, error)
   })
-}
+};
